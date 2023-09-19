@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 // import { connect } from 'react-redux';
 import { Col } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logo from './assets/images/pokedex_vector_logo.png';
 import 'antd/dist/reset.css';
 import './App.css';
 
-import { setPokemons } from './redux/actions';
+import { getPokemonWithDetails } from './redux/actions';
 import PokemonList from './components/PokemonList';
 import Searcher from './components/Searcher';
-import { getPokemon, getPokemonDetails } from './api';
-import { useDispatch, useSelector } from 'react-redux';
+import { getPokemon } from './api';
 
 function App() {
 
@@ -20,8 +20,7 @@ function App() {
   useEffect(() => {
     const fetchPokemon = async () => {
       const pokemonList = await getPokemon();
-      const pokemonDetailed = await Promise.all(pokemonList.map(pokemon => getPokemonDetails(pokemon)));
-      dispatch(setPokemons(pokemonDetailed));
+      dispatch(getPokemonWithDetails(pokemonList));
     }
 
     fetchPokemon();
