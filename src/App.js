@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 // import { connect } from 'react-redux';
-import { Col } from 'antd';
+import { Col, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import logo from './assets/images/pokedex_vector_logo.png';
 import 'antd/dist/reset.css';
 import './App.css';
 
-import { getPokemonWithDetails } from './redux/actions';
+import { getPokemonWithDetails, setLoading } from './redux/actions';
 import PokemonList from './components/PokemonList';
 import Searcher from './components/Searcher';
 import { getPokemon } from './api';
@@ -15,12 +15,15 @@ import { getPokemon } from './api';
 function App() {
 
   const pokemons = useSelector(state => state.pokemons);
+  const isLoading = useSelector(state => state.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchPokemon = async () => {
+      dispatch(setLoading(true));
       const pokemonList = await getPokemon();
       dispatch(getPokemonWithDetails(pokemonList));
+      dispatch(setLoading(false));
     }
 
     fetchPokemon();
@@ -28,13 +31,18 @@ function App() {
 
   return (
     <div className="App">
-      <Col span={6} offset={9}>
+      <Col span={4} offset={10}>
         <img src={logo} alt='Pokedex' />
       </Col>
       <Col span={8} offset={8}>
         <Searcher />
       </Col>
-      <PokemonList pokemons={pokemons} />
+      {isLoading
+        ? <Col offset={12}>
+          <Spin spinning size='large' />
+        </Col>
+        : <PokemonList pokemons={pokemons} />
+      }
     </div>
   );
 }

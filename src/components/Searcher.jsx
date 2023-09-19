@@ -5,6 +5,9 @@ const Searcher = () => {
     return (
         <Input.Search
             placeholder='Buscar...'
+            style={{
+                marginBottom: 10
+            }}
         />
     )
 }
