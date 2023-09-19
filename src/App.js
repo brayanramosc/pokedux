@@ -9,18 +9,19 @@ import './App.css';
 import { setPokemons } from './redux/actions';
 import PokemonList from './components/PokemonList';
 import Searcher from './components/Searcher';
-import { getPokemon } from './api';
+import { getPokemon, getPokemonDetails } from './api';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
 
   const pokemons = useSelector(state => state.pokemons);
-  const dispatcher = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchPokemon = async () => {
       const pokemonList = await getPokemon();
-      dispatcher(setPokemons(pokemonList));
+      const pokemonDetailed = await Promise.all(pokemonList.map(pokemon => getPokemonDetails(pokemon)));
+      dispatch(setPokemons(pokemonDetailed));
     }
 
     fetchPokemon();
