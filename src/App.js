@@ -14,8 +14,8 @@ import { getPokemon } from './api';
 
 function App() {
 
-  const pokemons = useSelector(state => state.pokemons);
-  const isLoading = useSelector(state => state.isLoading);
+  const pokemons = useSelector(state => state.get('pokemons')).toJS();
+  const isLoading = useSelector(state => state.get('isLoading'));
   const dispatch = useDispatch();
 
   useEffect(() => {
