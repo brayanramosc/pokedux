@@ -12,6 +12,8 @@ const PokemonList = ({ pokemons }) => {
                         name={pokemon.name}
                         image={pokemon.sprites.front_default}
                         types={pokemon.types.map(type => type.type.name).join(', ')}
+                        id={pokemon.id}
+                        isFavorite={pokemon.favorite}
                     />
                 })
             }
