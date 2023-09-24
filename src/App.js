@@ -11,7 +11,8 @@ import 'antd/dist/reset.css';
 import './App.css';
 
 function App() {
-  const pokemons = useSelector(state => state.data.pokemons, shallowEqual);
+  // const pokemons = useSelector(state => state.data.pokemons, shallowEqual);
+  const filteredPokemons = useSelector(state => state.data.filteredPokemons, shallowEqual);
   const isLoading = useSelector(state => state.ui.isLoading);
   // const pokemons = useSelector(state => state.getIn(['data', 'pokemons'], shallowEqual)).toJS();
   // const isLoading = useSelector(state => state.get(['ui', 'isLoading']));
@@ -33,7 +34,7 @@ function App() {
         ? <Col offset={12}>
           <Spin spinning size='large' />
         </Col>
-        : <PokemonList pokemons={pokemons} />
+        : <PokemonList pokemons={filteredPokemons} />
       }
     </div>
   );

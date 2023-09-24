@@ -3,7 +3,8 @@ import { getPokemon, getPokemonDetails } from '../api';
 import { setLoading } from './uiSlice';
 
 const initialState = {
-    pokemons: []
+    pokemons: [],
+    filteredPokemons: []
 }
 
 export const fetchPokemonsWithDetails = createAsyncThunk(
@@ -27,6 +28,7 @@ export const dataSlice = createSlice({
     reducers: {
         setPokemons: (state, action) => {
             state.pokemons = action.payload;
+            state.filteredPokemons = action.payload;
         },
         setFavorite: (state, action) => {
             const currentPokemonIndex = state.pokemons.findIndex(
@@ -36,10 +38,18 @@ export const dataSlice = createSlice({
             if (currentPokemonIndex >= 0) {
                 const isFavorite = state.pokemons[currentPokemonIndex].favorite;
                 state.pokemons[currentPokemonIndex].favorite = !isFavorite;
+                state.filteredPokemons = state.pokemons;
             }
+        },
+        setFilteredPokemons: (state, action) => {
+            const newPokemons = state.pokemons.filter(
+                (pokemon) => pokemon.name.includes(action.payload)
+            );
+
+            state.filteredPokemons = newPokemons;
         }
     }
 })
 
-export const { setFavorite, setPokemons } = dataSlice.actions;
+export const { setFavorite, setPokemons, setFilteredPokemons } = dataSlice.actions;
 export default dataSlice.reducer;
