@@ -1,4 +1,13 @@
-.pokemon-list {
+.pokemon-list-clear {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 elementos y cada uno ocupa 1 espacio */
+    gap: 2rem;
+    margin-top: 3rem;
+    padding: 0 3rem 3rem;
+    background-color: white;
+}
+
+.pokemon-list-dark {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 elementos y cada uno ocupa 1 espacio */
     gap: 2rem;

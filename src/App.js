@@ -9,7 +9,7 @@ import PokemonList from './components/PokemonList';
 import Searcher from './components/Searcher';
 import 'antd/dist/reset.css';
 import './App.css';
-
+const bodyColors = ["#352F44","white"];
 function App() {
   // const pokemons = useSelector(state => state.data.pokemons, shallowEqual);
   const filteredPokemons = useSelector(state => state.data.filteredPokemons, shallowEqual);
@@ -21,12 +21,17 @@ function App() {
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
   }, [dispatch])
-  const [theme, settheme] = useState(true);
+  const [theme, settheme] = useState(0);
+  const themes = ["pokemon-list-clear", "pokemon-list-dark"];
+  
   return (
     <div className="App">
-      <button onClick={()=>{settheme(!theme); console.log(theme)}}>theme</button>
+      <button onClick={()=>{settheme((theme+1)%2);
+       const bodyElt = document.querySelector("body");
+       bodyElt.style.backgroundColor = bodyColors[theme];
+      }} id="theme-button">☀️</button>
       <Col span={4} offset={10}>
-        <img src={logo} alt='Pokedex' />
+        <img src={logo} alt='Pokedex'  />
       </Col>
       <Col span={8} offset={8}>
         <Searcher />
@@ -35,7 +40,7 @@ function App() {
         ? <Col offset={12}>
           <Spin spinning size='large' />
         </Col>
-        : <PokemonList pokemons={filteredPokemons} />
+        : <PokemonList theme={themes[theme]} pokemons={filteredPokemons} />
       }
     </div>
   );
