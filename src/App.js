@@ -21,14 +21,13 @@ function App() {
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
   }, [dispatch])
-  const [theme, settheme] = useState(0);
-  const themes = ["pokemon-list-clear", "pokemon-list-dark"];
+  const [isDark, settheme] = useState(0);
+  const themes = ["clear", "dark"];
   
   return (
     <div className="App">
-      <button onClick={()=>{settheme((theme+1)%2);
-       const bodyElt = document.querySelector("body");
-       bodyElt.style.backgroundColor = bodyColors[theme];
+      <button onClick={()=>{settheme((isDark+1)%2);
+       document.querySelector("body").style.backgroundColor = bodyColors[isDark];
       }} id="theme-button">☀️</button>
       <Col span={4} offset={10}>
         <img src={logo} alt='Pokedex'  />
@@ -40,7 +39,7 @@ function App() {
         ? <Col offset={12}>
           <Spin spinning size='large' />
         </Col>
-        : <PokemonList theme={themes[theme]} pokemons={filteredPokemons} />
+        : <PokemonList theme={themes[isDark]} pokemons={filteredPokemons} />
       }
     </div>
   );

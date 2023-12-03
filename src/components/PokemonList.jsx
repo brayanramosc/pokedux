@@ -4,7 +4,7 @@ import './PokemonList.css';
 
 const PokemonList = ({ pokemons,theme }) => {
     return (
-        <div className={theme}>
+        <div className={"pokemon-list-"+theme}>
             {
                 pokemons.map((pokemon) => {
                     return <PokemonCard
@@ -14,7 +14,7 @@ const PokemonList = ({ pokemons,theme }) => {
                         types={pokemon.types.map(type => type.type.name).join(', ')}
                         id={pokemon.id}
                         isFavorite={pokemon.favorite}
-                        theme = {theme+"s"}
+                        theme = {"card-"+theme}
                     />
                 })
             }
