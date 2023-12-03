@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Spin } from 'antd';
 // import { connect } from 'react-redux';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -21,9 +21,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
   }, [dispatch])
-
+  const [theme, settheme] = useState(true);
   return (
     <div className="App">
+      <button onClick={()=>{settheme(!theme); console.log(theme)}}>theme</button>
       <Col span={4} offset={10}>
         <img src={logo} alt='Pokedex' />
       </Col>
