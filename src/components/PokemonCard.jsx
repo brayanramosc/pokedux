@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import StarButton from './StarButton';
 import { setFavorite } from '../slices/dataSlice';
+import "./Card.css"
 
 const PokemonCard = ({ name, image, types, id, isFavorite }) => {
     const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const PokemonCard = ({ name, image, types, id, isFavorite }) => {
     const handleOnFavorite = () => dispatch(setFavorite({ pokemonId: id }));
 
     return (
-        <Card
+        <Card className='card'
             title={name}
             cover={
                 <img
