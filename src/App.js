@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Spin } from 'antd';
 // import { connect } from 'react-redux';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import PokemonList from './components/PokemonList';
 import Searcher from './components/Searcher';
 import 'antd/dist/reset.css';
 import './App.css';
-
+const bodyColors = ["#352F44","white"];
 function App() {
   // const pokemons = useSelector(state => state.data.pokemons, shallowEqual);
   const filteredPokemons = useSelector(state => state.data.filteredPokemons, shallowEqual);
@@ -21,11 +21,16 @@ function App() {
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
   }, [dispatch])
-
+  const [isDark, settheme] = useState(0);
+  const themes = ["clear", "dark"];
+  
   return (
     <div className="App">
+      <button onClick={()=>{settheme((isDark+1)%2);
+       document.querySelector("body").style.backgroundColor = bodyColors[isDark];
+      }} id="theme-button">☀️</button>
       <Col span={4} offset={10}>
-        <img src={logo} alt='Pokedex' />
+        <img src={logo} alt='Pokedex'  />
       </Col>
       <Col span={8} offset={8}>
         <Searcher />
@@ -34,7 +39,7 @@ function App() {
         ? <Col offset={12}>
           <Spin spinning size='large' />
         </Col>
-        : <PokemonList pokemons={filteredPokemons} />
+        : <PokemonList theme={themes[isDark]} pokemons={filteredPokemons} />
       }
     </div>
   );

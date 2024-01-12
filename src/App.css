@@ -7,3 +7,12 @@
 }
 
 
+#theme-button{
+  position: fixed;
+  width: 2%;
+  left: 97%;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  border: 0px;
+}
